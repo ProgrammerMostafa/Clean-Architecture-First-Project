@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'core/services/services.dart';
 import 'movies/presentation/controller/movies_bloc.dart';
+import 'movies/presentation/controller/movies_event.dart';
 import 'movies/presentation/screens/movies_screen.dart';
 
 void main() {
   ServiceLactor().init();
   ///////////////////////
+  //Bloc.observer = MyBlocObserver();
   runApp(
     BlocProvider<MoviesBloc>(
-      create: (context) => MoviesBloc(getIt()),
+      create: (context) => getIt()
+        ..add(GetNowPlayingMoviesEvent())
+        ..add(GetPopularMoviesEvent())
+        ..add(GetTopRatedMoviesEvent()),
       child: const MyApp(),
     ),
   );
