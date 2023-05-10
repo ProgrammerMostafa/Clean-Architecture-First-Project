@@ -11,7 +11,7 @@ class GetNowPlayingMoviesUsecase extends BaseUseCase<List<Movie>, NoParameters> 
   GetNowPlayingMoviesUsecase(this.repository);
 
   @override
-  Future<Either<Failure, List<Movie>>> call(NoParameters parameters) {
-    return repository.getNowPlayingMovies();
+  Future<Either<Failure, List<Movie>>> call(NoParameters parameters) async{
+    return await repository.getNowPlayingMovies();
   }
 }

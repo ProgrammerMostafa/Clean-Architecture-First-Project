@@ -11,7 +11,7 @@ class GetPopularMoviesUsecase extends BaseUseCase<List<Movie>,NoParameters> {
   GetPopularMoviesUsecase(this.repository);
 
   @override
-  Future<Either<Failure, List<Movie>>> call(NoParameters parameters) {
-    return repository.getPopularMovies();
+  Future<Either<Failure, List<Movie>>> call(NoParameters parameters) async{
+    return await repository.getPopularMovies();
   }
 }

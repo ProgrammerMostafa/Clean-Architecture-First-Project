@@ -13,7 +13,11 @@ class APIConstant {
 
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 
-  static String imageUrl(String url) {
-    return '$baseImageUrl$url';
-  }
+  static String imageUrl(String url) => '$baseImageUrl$url';
+
+  static String movieDetailsPath(int movieID) =>
+      '$baseUrl/movie/$movieID?api_key=$appAPIKey';
+
+  static String recommendationsPath(int movieID) =>
+      '$baseUrl/movie/$movieID/recommendations?api_key=$appAPIKey';
 }
