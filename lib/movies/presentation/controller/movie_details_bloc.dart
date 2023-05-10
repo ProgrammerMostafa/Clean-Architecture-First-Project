@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture_complete_app/movies/domain/entities/movie_details.dart';
 import 'package:flutter_clean_architecture_complete_app/movies/domain/entities/recommendations.dart';
 import 'package:flutter_clean_architecture_complete_app/movies/domain/usecases/get_movie_details_usecase.dart';
@@ -35,13 +36,10 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
       (l) => emit(
         state.copyWith(movieDetailsState: RequestState.error),
       ),
-      (r) {
-        print('111111 ===> $r');
-        emit(state.copyWith(
+      (r) => emit(state.copyWith(
           movieDetails: r,
           movieDetailsState: RequestState.success,
-        ));
-      },
+        )),
     );
   }
 
@@ -56,13 +54,10 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
       (l) => emit(
         state.copyWith(recommendationsState: RequestState.error),
       ),
-      (r) {
-        print('22222 ===> $r');
-        emit(state.copyWith(
+      (r) => emit(state.copyWith(
           recommendations: r,
           recommendationsState: RequestState.success,
-        ));
-      },
+        )),
     );
   }
 }

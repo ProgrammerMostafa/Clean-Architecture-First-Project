@@ -21,7 +21,7 @@ class MovieDetailScreen extends StatelessWidget {
       create: (context) => getIt<MovieDetailsBloc>()
         ..add(GetMovieDetailsEvent(movieId))
         ..add(GetMovieRecommendationsEvent(movieId)),
-      lazy: false,
+      lazy: true,
       child: const Scaffold(body: MovieDetailContent()),
     );
   }
@@ -34,9 +34,6 @@ class MovieDetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
       builder: (context, state) {
-        // print('State ===> ${state.movieDetailsState}  &&& ${state.recommendationsState}');
-        print('State ===> ${state.movieDetails} ');
-        print('State2 ===> ${state.recommendations} ');
         switch (state.movieDetailsState) {
           case RequestState.loading:
             return const Center(child: CircularProgressIndicator());
@@ -236,44 +233,50 @@ class MovieDetailContent extends StatelessWidget {
   }
 
   Widget _showRecommendations(MovieDetailsState state) {
-    return SliverGrid(
-      delegate: SliverChildBuilderDelegate(
-        childCount: state.recommendations.length,
-        (context, index) {
-          final recommendation = state.recommendations[index];
-          return FadeInUp(
-            from: 20,
-            duration: const Duration(milliseconds: 500),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              child: CachedNetworkImage(
-                imageUrl: APIConstant.imageUrl(recommendation.backdropPath!),
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[850]!,
-                  highlightColor: Colors.grey[800]!,
-                  child: Container(
-                    height: 170.0,
-                    width: 120.0,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(8.0),
+    return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+      builder: (context, state) {
+        return SliverGrid(
+          delegate: SliverChildBuilderDelegate(
+            childCount: state.recommendations.length,
+            (context, index) {
+              final recommendation = state.recommendations[index];
+              return FadeInUp(
+                from: 20,
+                duration: const Duration(milliseconds: 500),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        APIConstant.imageUrl(recommendation.backdropPath!),
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[850]!,
+                      highlightColor: Colors.grey[800]!,
+                      child: Container(
+                        height: 170.0,
+                        width: 120.0,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                    height: 180.0,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                height: 180.0,
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        },
-      ),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
-        childAspectRatio: 0.7,
-        crossAxisCount: 3,
-      ),
+              );
+            },
+          ),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisSpacing: 8.0,
+            crossAxisSpacing: 8.0,
+            childAspectRatio: 0.7,
+            crossAxisCount: 3,
+          ),
+        );
+      },
     );
   }
 }

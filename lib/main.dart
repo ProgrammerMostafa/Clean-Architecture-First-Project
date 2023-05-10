@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_architecture_complete_app/movies/presentation/controller/movie_details_bloc.dart';
-
 import 'core/services/services.dart';
 import 'movies/presentation/controller/movies_bloc.dart';
 import 'movies/presentation/controller/movies_event.dart';

@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_architecture_complete_app/movies/presentation/controller/movie_details_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/network/api_constant.dart';
